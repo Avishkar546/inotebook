@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -14,11 +15,11 @@ const UserSchema = new Schema({
     password:{
         type:String,
         required:true
-    },
-    Timestamp:{
-        type:Date,
-        default:Date.now
     }
+    // Timestamp:{
+    //     type:Date,
+    //     default:new Date() 
+    // }
 });
 
 module.exports = mongoose.model('User',UserSchema);

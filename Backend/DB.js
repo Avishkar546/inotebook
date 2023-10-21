@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const connectionURI = "mongodb://127.0.0.1:27017";
+// Use 0.0.0.0:27017 instead of localhost
+const connectionURI = "mongodb://0.0.0.0:27017";//mongodb://0.0.0.0:27017
 
 const connectToMongo = () => {
     mongoose.connect(connectionURI) ;
