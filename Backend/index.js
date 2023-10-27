@@ -6,13 +6,13 @@ const app = express();
 
 app.use(express.json()); // To send the json data we use this middleware.
 
-app.get("/" , (req,res)=>{
+app.get("/", (req, res) => {
     res.send("GCOEARA");
 });
 
-app.use("/api/auth",require("./Routes/auth")); // Authentication route for email password
+app.use("/api/auth", require("./Routes/auth")); // Authentication route for email password
 // app.use("/api/notes",require("./Routes/notes"));
 
-app.listen(3000 , ()=>{
+app.listen(3000, () => {
     console.log("Server is listening");
 })
