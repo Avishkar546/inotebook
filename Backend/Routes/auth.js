@@ -4,10 +4,11 @@ const { body, validationResult } = require("express-validator"); // To add custo
 const router = express.Router(); // To respond to the router 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const fetchUser = require("../Middleware/fetchUser");
 
 const jwtAuthKey = "Gcoe@r@N@vod@y@"; // Secret key for JWT authentication.
 
-// Create a route to register a new user
+// ROUTE 1 : Create a route to register a new user
 router.post("/registration",
     [
         body('password', "Make a stronger password").isLength({ min: 5 }),
@@ -37,12 +38,12 @@ router.post("/registration",
 
                 bcrypt.genSalt(5, function (error, salt) {
                     bcrypt.hash(password, salt, function (error, password) { //hash function will return the hash or either error if any
-                        const user = new User({ Name, Email, password });
-                        user.save()
+                        const user1 = new User({ Name, Email, password });
+                        user1.save()
                             .then(() => {
                                 let data = {
                                     user: {
-                                        id: user.id
+                                        id: user1.id
                                     }
                                 }
                                 var jwtToken = jwt.sign(data, jwtAuthKey);
@@ -60,11 +61,11 @@ router.post("/registration",
             .catch(error => console.log(error));
     })
 
-// Login Authentication Route
+//ROUTE 2 : Login Authentication Route
 router.post("/login",
     [
-        body('password', "Make a stronger password").exists(),
-        body("Email", "Invalid user email").isEmail()
+        body('password', "Please complete the credentials").exists(),
+        body("Email", "Please complete the credentials").isEmail()
     ],
     async (req, res) => {
         const errors = validationResult(req); // Catch the errors if any in the credentials.
@@ -95,7 +96,8 @@ router.post("/login",
             }
             var jwtToken = jwt.sign(data, jwtAuthKey);
             // console.log(jwtToken);
-            res.status(201).json({ jwtToken});
+            // res.status(201).json("Welcome to website iNotebook");
+            res.status(201).json({jwtToken});
 
         } catch {
             res.status(500).json("Internal Server error");
@@ -103,4 +105,26 @@ router.post("/login",
 
     });
 
+//ROUTE 3 : Get Loggedin user details using 'api/auth/getuser'
+
+router.post("/getuser", fetchUser,async (req, res) => {
+    const errors = validationResult(req); // Catch the errors if any in the credentials.
+    if (!errors.isEmpty()) {
+        console.log(error);
+        return res.status(400).json({
+            success: false,
+            errors: errors.array()
+        });
+    }
+
+    try {
+        let userId = req.user.id;
+        const getUser = await User.findById(userId).select("-password");
+        res.status(201).json(getUser);
+        
+    } catch {
+        res.status(500).json("Internal Server error");
+    }
+
+})
 module.exports = router; 
