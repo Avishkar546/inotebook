@@ -1,11 +1,11 @@
 const express = require("express");
 const User = require("../models/Users"); // Use this model to store data according to schema
-const { body, validationResult } = require("express-validator"); // To add custom validation like minimum password length,or isEmail
+// To add custom validation like minimum password length,or isEmail
 const router = express.Router(); // To respond to the router 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { body, validationResult } = require("express-validator");
 const fetchUser = require("../Middleware/fetchUser");
-
 const jwtAuthKey = "Gcoe@r@N@vod@y@"; // Secret key for JWT authentication.
 
 // ROUTE 1 : Create a route to register a new user
@@ -48,7 +48,7 @@ router.post("/registration",
                                 }
                                 var jwtToken = jwt.sign(data, jwtAuthKey);
                                 console.log(jwtToken);
-                                res.status(201).json({ jwtToken});
+                                res.status(201).json({ jwtToken });
                             })
                             .catch(err => {
                                 console.log(err);
@@ -61,11 +61,12 @@ router.post("/registration",
             .catch(error => console.log(error));
     })
 
+
 //ROUTE 2 : Login Authentication Route
 router.post("/login",
     [
-        body('password', "Please complete the credentials").exists(),
-        body("Email", "Please complete the credentials").isEmail()
+        body("password", "Incorrect Email or password").exists(),
+        body("Email", "Incorrect Email or password").isEmail()
     ],
     async (req, res) => {
         const errors = validationResult(req); // Catch the errors if any in the credentials.
@@ -79,9 +80,9 @@ router.post("/login",
         const { Email, password } = req.body;// As we are using ES6 Array destructuring please provide the same name as come in req.body
 
         try {
-            let user = await User.findOne({Email});
+            let user = await User.findOne({ Email });
             if (!user) {
-                return res.status(400).json("Please provide the valid credentials");
+                return res.status(400).json("Please provide the valid credentials user");
             }
 
             let passwordCompare = await bcrypt.compare(password, user.password);
@@ -97,34 +98,25 @@ router.post("/login",
             var jwtToken = jwt.sign(data, jwtAuthKey);
             // console.log(jwtToken);
             // res.status(201).json("Welcome to website iNotebook");
-            res.status(201).json({jwtToken});
+            res.status(201).json({ jwtToken });
 
         } catch {
             res.status(500).json("Internal Server error");
         }
 
     });
-
 //ROUTE 3 : Get Loggedin user details using 'api/auth/getuser'
 
-router.post("/getuser", fetchUser,async (req, res) => {
-    const errors = validationResult(req); // Catch the errors if any in the credentials.
-    if (!errors.isEmpty()) {
-        console.log(error);
-        return res.status(400).json({
-            success: false,
-            errors: errors.array()
-        });
-    }
+router.post("/getuser", fetchUser,
+    async (req, res) => {
+        try {
+            userId = req.user.id;
+            const user = await User.findById(userId).select("-password")
+            res.send(user)
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send("Internal Server Error");
+        }
+    });
 
-    try {
-        let userId = req.user.id;
-        const getUser = await User.findById(userId).select("-password");
-        res.status(201).json(getUser);
-        
-    } catch {
-        res.status(500).json("Internal Server error");
-    }
-
-})
 module.exports = router; 
