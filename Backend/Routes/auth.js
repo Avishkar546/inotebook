@@ -65,30 +65,31 @@ router.post("/registration",
 //ROUTE 2 : Login Authentication Route
 router.post("/login",
     [
-        body("password", "Incorrect Email or password").exists(),
-        body("Email", "Incorrect Email or password").isEmail()
+        body("Email", "Incorrect Email or password").isEmail(),
+        body("password", "Incorrect Email or password").exists()
     ],
     async (req, res) => {
         const errors = validationResult(req); // Catch the errors if any in the credentials.
         if (!errors.isEmpty()) {
             return res.status(400).json({
                 success: false,
-                errors: errors.array()
+                errors: errors.array(),
+                message: "Please provide the valid credentials user"
             });
         }
 
         const { Email, password } = req.body;// As we are using ES6 Array destructuring please provide the same name as come in req.body
-
+        console.log(`${Email}: ${password}`);
         try {
             let user = await User.findOne({ Email });
             if (!user) {
-                return res.status(400).json("Please provide the valid credentials user");
+                return res.status(400).json({ message: "Please provide the valid credentials user" });
             }
 
             let passwordCompare = await bcrypt.compare(password, user.password);
 
             if (!passwordCompare) {
-                return res.status(400).json("Please provide the valid credentials");
+                return res.status(400).json({ message: "Please provide the valid credentials user" });
             }
             let data = {
                 user: {
@@ -98,10 +99,10 @@ router.post("/login",
             var jwtToken = jwt.sign(data, jwtAuthKey);
             // console.log(jwtToken);
             // res.status(201).json("Welcome to website iNotebook");
-            res.status(201).json({ jwtToken });
+            res.status(201).json({ message: jwtToken });
 
         } catch {
-            res.status(500).json("Internal Server error");
+            res.status(500).json({ message: "Internal Server error" });
         }
 
     });
@@ -110,7 +111,7 @@ router.post("/login",
 router.post("/getuser", fetchUser,
     async (req, res) => {
         try {
-            userId = req.user.id;
+            const userId = req.user.id;
             const user = await User.findById(userId).select("-password")
             res.send(user)
         } catch (error) {

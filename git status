@@ -1,0 +1,47 @@
+[33mcommit d0af35a9db645d7b5d39b04b8a97d5c8eaa972da[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Wed Dec 13 21:40:35 2023 +0530
+
+    All the CRUD operation APIs are ready and with front end & backend logic
+
+[33mcommit 5b3665f6b5c97910e16f7331a8a3e3b1c91231dd[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Mon Oct 30 08:50:47 2023 +0530
+
+    Created a middleware for fetching all the user details.
+
+[33mcommit 7968ebce4dfa1a7f453174dd8f50ee53efc159d9[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Fri Oct 27 13:23:27 2023 +0530
+
+    Login route is ready with JWT auhtentication
+
+[33mcommit e715f26c964db921653b290d813c86efaba3deaf[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Fri Oct 27 11:09:26 2023 +0530
+
+    Storing hashsed password into database using bcrypt npm package
+
+[33mcommit 70f96c0e51f48196b4e5861b27a04a294725d29a[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Sat Oct 21 08:26:36 2023 +0530
+
+    Storing user data into database
+
+[33mcommit 1b580de39f5dc41e4095510b4d05fbd80e04c32e[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Wed Oct 18 09:25:26 2023 +0530
+
+    Authentication and notes endpoints are set up
+
+[33mcommit 645b9681ac4e902ad15c3a72262e6e34f86d285c[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Tue Oct 17 12:06:01 2023 +0530
+
+    Connection established with mongodb database usign Compass
+
+[33mcommit 25f1b5e5df6f42670ba3a02fb2642da8e6b6cb6f[m
+Author: Avishkar <gaikwadavishkar546@gmail.com>
+Date:   Fri Oct 13 08:29:48 2023 +0530
+
+    Initial Commit

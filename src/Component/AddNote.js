@@ -8,6 +8,9 @@ const AddNote = () => {
     const onClick = (e) => {
         e.preventDefault();
         addNote(note.Title, note.Description, note.Tag);
+        document.getElementById('Title').value = '';
+        document.getElementById('Description').value = '';
+        document.getElementById('Tag').value = '';
     }
 
     const onChange = (e) => {
@@ -23,15 +26,15 @@ const AddNote = () => {
                     <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" id='Title' name='Title' onChange={onChange} />
                 </div>
                 <div className="input-group mb-3">
-                    <span htmlFor="Title" className="input-group-text" id="basic-addon1">Tag</span>
-                    <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" id='Title' name='Title' onChange={onChange} />
-                </div>
-                <div className="input-group mb-3">
                     <span htmlFor="Description" className="input-group-text">Description</span>
                     <textarea className="form-control" aria-label="With textarea" id='Description' name='Description' onChange={onChange}></textarea>
                 </div>
+                <div className="input-group mb-3">
+                    <span htmlFor="Title" className="input-group-text" id="basic-addon1">Tag</span>
+                    <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" id='Tag' name='Tag' onChange={onChange} />
+                </div>
                 <div className="text-center">
-                    <button type="submit" className="btn btn-primary mb-3" onClick={onClick}>ADD</button>
+                    <button disabled={note.Title.length<5 || note.Description.length<5} type="submit" className="btn btn-primary mb-3" onClick={onClick}>ADD</button>
                 </div>
             </form>
         </div>

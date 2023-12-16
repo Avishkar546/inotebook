@@ -1,14 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import noteContext from "../Context/notes/noteContext"
 
-const UpdateModal = ({ currentNote }) => {
-    const { updateNote } = useContext(noteContext);
+const UpdateModal = ({ id, title, description, tag, handleUpdate }) => {
     const [editedNote, setEditedNote] = useState({ // State to maintain any updates in notes
-        id: currentNote._id,
-        etitle: currentNote.Title,
-        edescription: currentNote.Description,
-        etag: currentNote.Tag
+        id: id,
+        etitle: title,
+        edescription: description,
+        etag: tag
     });
 
     const handleInputChange = (e) => {
@@ -19,13 +17,13 @@ const UpdateModal = ({ currentNote }) => {
         });
     };
 
-    const handleUpdate = (id, title, description, tag) => {
-        updateNote(id, title, description, tag);
+    const onUpdate = () => { //Function to handle onClick on Save Changes button
+        handleUpdate(editedNote);
         handleClose();
     }
 
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => setShow(false); //Function to handle onClick on close button
     const handleShow = () => setShow(true);
 
     return (
@@ -43,25 +41,25 @@ const UpdateModal = ({ currentNote }) => {
                 <Modal.Body>
                     <div className='container'>
                         <h1 className='text-center'>Add Your Notes</h1>
-                        <form action="" method='post'>
+                        <form id='editModal' action="" method='PUT'>
                             <div className="input-group mb-3">
                                 <span htmlFor="Title" className="input-group-text" id="basic-addon1">Title</span>
-                                <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" id='Title' name='etitle' onChange={handleInputChange} />
+                                <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" id='Title' name='etitle' value={editedNote.etitle} onChange={handleInputChange} />
                             </div>
                             <div className="input-group mb-3">
                                 <span htmlFor="Description" className="input-group-text">Description</span>
-                                <textarea className="form-control" aria-label="With textarea" id='Description' name='edescription' onChange={handleInputChange}></textarea>
+                                <textarea className="form-control" aria-label="With textarea" id='Description' name='edescription' value={editedNote.edescription} onChange={handleInputChange}></textarea>
                             </div>
                             <div className="input-group mb-3">
                                 <span htmlFor="Title" className="input-group-text" id="basic-addon1">Tag</span>
-                                <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" id='Tag' name='etag' onChange={handleInputChange} />
+                                <input type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" id='Tag' name='etag' value={editedNote.etag} onChange={handleInputChange} />
                             </div>
                         </form>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                    <Button variant="primary" onClick={handleUpdate(editedNote.id,editedNote.etitle,editedNote.edescription,editedNote.etag)}>Save Changes</Button>
+                    <Button variant="primary" onClick={onUpdate}>Save Changes</Button> {/*disabled={editedNote.etitle.length<5 || editedNote.edescription.length<5}   */}
                 </Modal.Footer>
             </Modal>
         </>
