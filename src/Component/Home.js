@@ -2,13 +2,20 @@ import React, { useContext, useEffect } from 'react'
 import noteContext from "../Context/notes/noteContext"
 import Notecard from "./Notecard"
 import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
+  let navigation = useNavigate();
   const context = useContext(noteContext);
   const { Notes, getNote, updateNote } = context;
 
   useEffect(() => {
-    getNote();
+    if (localStorage.getItem('token')) {
+      getNote();
+    }
+    else {
+      navigation("/login");
+    }
   })
 
   const handleUpdate = (editNote) => { // Get values after user update the notes on clicking save changes

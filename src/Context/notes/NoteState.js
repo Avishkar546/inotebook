@@ -1,11 +1,14 @@
 import noteContext from './noteContext'
 import { useState } from 'react'
+import { useAlert } from '../Alert/AlertState';
 
 const NoteState = (props) => {
   let host = "http://localhost:3000/api/notes";
   const initialNotes = []
   const [Notes, setNotes] = useState(initialNotes);
 
+  const {showAlert} = useAlert();
+   
   const getNote = async () => {
     // Backend API logic
     // eslint-disable-next-line
@@ -14,7 +17,7 @@ const NoteState = (props) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MzFmYmUzNzk3ODM2NDdjODM5NmIzIn0sImlhdCI6MTcwMDU2NzcxMH0.UCSvFrsik6Gxrali5V7RfLEIXOUPH9SDINSLQnrfKO0"
+          "auth-token": localStorage.getItem('token')
         }
       });
       // console.log(response);
@@ -37,7 +40,7 @@ const NoteState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MzFmYmUzNzk3ODM2NDdjODM5NmIzIn0sImlhdCI6MTcwMDU2NzcxMH0.UCSvFrsik6Gxrali5V7RfLEIXOUPH9SDINSLQnrfKO0"
+          "auth-token": localStorage.getItem('token')
         },
         body: JSON.stringify({ Title, Description, Tag })
       })
@@ -46,9 +49,10 @@ const NoteState = (props) => {
       }
       const note = response.json();
       setNotes(Notes.concat(note));
+      showAlert("success","Note added successfully");
     }
     catch (error) {
-      console.error(error);
+      showAlert("warning","Something went wrong");
     };    
   }
 
@@ -59,11 +63,14 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MzFmYmUzNzk3ODM2NDdjODM5NmIzIn0sImlhdCI6MTcwMDU2NzcxMH0.UCSvFrsik6Gxrali5V7RfLEIXOUPH9SDINSLQnrfKO0"
+        "auth-token": localStorage.getItem('token')
       },
     })
-
-    setNotes(Notes => Notes.filter(note => note._id !== noteId));
+    if(response.ok){
+      setNotes(Notes => Notes.filter(note => note._id !== noteId));
+      showAlert("success","Note deleted successfully");
+    }
+    
   }
 
   // Update the note with particular note id and with authenticate user
@@ -74,11 +81,14 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MzFmYmUzNzk3ODM2NDdjODM5NmIzIn0sImlhdCI6MTcwMDU2NzcxMH0.UCSvFrsik6Gxrali5V7RfLEIXOUPH9SDINSLQnrfKO0"
+        "auth-token": localStorage.getItem('token')
       },
       body: JSON.stringify({ Title, Description, Tag })
     })
 
+    if(response.ok){
+      showAlert("success","Note updated successfully");
+    }
     // Front-end Client side logic
     for (let index = 0; index < Notes.length; index++) {
       const element = Notes[index];
@@ -100,4 +110,3 @@ const NoteState = (props) => {
 }
 
 export default NoteState;
-

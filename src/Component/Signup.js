@@ -1,4 +1,5 @@
 import { React, useState } from 'react'
+import { useAlert } from '../Context/Alert/AlertState'
 
 const Signup = () => {
   const [credentials, setCredentials] = useState({ // To manage input values
@@ -6,6 +7,8 @@ const Signup = () => {
     Email: "",
     password: ""
   })
+
+  const {showAlert} = useAlert(); 
 
   const handleSubmit = async (e) => { // On form submit
     e.preventDefault();
@@ -24,9 +27,10 @@ const Signup = () => {
         Email: "",
         password: ""
       })
+      showAlert("success","Registered successfully");
     }
     else {
-      alert(`${json.message}`);
+      showAlert("warning","Something went wrong");
     }
   }
 

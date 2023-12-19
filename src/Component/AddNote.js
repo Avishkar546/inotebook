@@ -18,7 +18,7 @@ const AddNote = () => {
     }
 
     return (
-        <div className='container'>
+        <div className='container my-8'>
             <h1 className='text-center'>Add Your Notes</h1>
             <form action="" method='post'>
                 <div className="input-group mb-3">

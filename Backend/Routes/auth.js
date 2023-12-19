@@ -47,12 +47,12 @@ router.post("/registration",
                                     }
                                 }
                                 var jwtToken = jwt.sign(data, jwtAuthKey);
-                                console.log(jwtToken);
-                                res.status(201).json({ jwtToken });
+                                // console.log(jwtToken);
+                                res.status(201).json({ message:"Registered Succesfully" });
                             })
                             .catch(err => {
                                 console.log(err);
-                                res.status(501).json({ msg: "Failed to register" });
+                                res.status(501).json({ message: "Failed to register" });
                             })
                     });
                 });
@@ -79,7 +79,7 @@ router.post("/login",
         }
 
         const { Email, password } = req.body;// As we are using ES6 Array destructuring please provide the same name as come in req.body
-        console.log(`${Email}: ${password}`);
+        // console.log(`${Email}: ${password}`);
         try {
             let user = await User.findOne({ Email });
             if (!user) {
@@ -99,7 +99,7 @@ router.post("/login",
             var jwtToken = jwt.sign(data, jwtAuthKey);
             // console.log(jwtToken);
             // res.status(201).json("Welcome to website iNotebook");
-            res.status(201).json({ message: jwtToken });
+            res.status(201).json({ token: jwtToken, message:"Loggedin Successfully" });
 
         } catch {
             res.status(500).json({ message: "Internal Server error" });
@@ -116,7 +116,7 @@ router.post("/getuser", fetchUser,
             res.send(user)
         } catch (error) {
             console.error(error.message);
-            res.status(500).send("Internal Server Error");
+            res.status(500).json({message:"Internal Server Error"});
         }
     });
 
