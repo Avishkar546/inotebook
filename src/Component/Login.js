@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAlert } from '../Context/Alert/AlertState';
 
 const Login = () => {
@@ -44,26 +44,22 @@ const Login = () => {
             [name]: value,
         });
     };
-
     return (
-        <>
-            <div className="w-50 container mx-10 my-5">
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group my-3">
-                        <label htmlFor="Email">Email address</label>
-                        <input type="email" className="form-control" id="Email" aria-describedby="emailHelp" placeholder="Enter email" onChange={handleInputChange} name='Email' value={credentials.Email} />
-                        <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                    <div className="form-group my-3">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" id="password" placeholder="Password" onChange={handleInputChange} name='password' value={credentials.password} />
-                    </div>
-                    <div className='container text-center'>
-                        <button type="submit" className="btn btn-primary ">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </>
+        <div className="signin-container">
+            <form className="signin-form" onSubmit={handleSubmit}>
+                <h2>Sign In</h2>
+                <label htmlFor="username">Username:</label>
+                <input type="email" id="username" aria-describedby="emailHelp" placeholder="Enter email" onChange={handleInputChange} name='Email' value={credentials.Email} required />
+
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" placeholder="Password" onChange={handleInputChange} name='password' value={credentials.password} required />
+
+                <button type="submit">Sign In</button>
+                <div className="link-to-login">
+                    <p>Don't have an account? <Link to="/registration">Register here</Link></p>
+                </div>
+            </form>
+        </div>
     )
 }
 

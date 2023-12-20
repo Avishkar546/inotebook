@@ -1,47 +1,32 @@
 import React from 'react'
-import styles from './About.module.css';
 export default function About() {
   return (
     <>
-      <body>
-
-        <header>
-          <h1>About Our iNotebook App</h1>
-        </header>
-
-        <section className={styles.about-content}>
-          <div className={styles.container}>
-            <h2>Our Story</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
-          </div>
-        </section>
-
-        <section className={styles.team-section}>
-          <div className="container">
-            <h2>Meet Our Team</h2>
-
-            <div className={styles.team-member}>
-              <img src="team-member1.jpg" alt="Team Member 1" />
-                <h3>John Doe</h3>
-                <p>Co-Founder</p>
-            </div>
-
-            <div className={styles.team-member}>
-              <img src="team-member2.jpg" alt="Team Member 2" />
-                <h3>Jane Smith</h3>
-                <p>Lead Developer</p>
-            </div>
-
-            {/* <!-- Add more team members as needed --> */}
-
-          </div>
-        </section>
-
-        <footer>
+      <div className="about-container">
+        <div className="about-content">
+          <h2>About Our iNotebook App</h2>
+          <p>
+            Welcome to iNotebook, your go-to application for organizing and managing your notes effortlessly.
+            Our application provides a simple and intuitive interface, allowing you to create, edit, and delete notes
+            with ease. Whether you're a student, professional, or anyone in need of a digital notebook, iNotebook is
+            designed to meet your needs.
+          </p>
+          <p>
+            Key Features:
+          </p>
+          <ul>
+            <li>Effortless note creation and management</li>
+            <li>Intuitive user interface for a seamless experience</li>
+            <li>Secure storage of your valuable notes</li>
+            <li>Responsive design for access on various devices</li>
+          </ul>
+          <p>
+            Thank you for choosing iNotebook as your digital note-taking companion. We are dedicated to continually
+            improving our application to provide you with the best possible user experience.
+          </p>
           <p>&copy; 2023 iNotebook. All rights reserved.</p>
-        </footer>
-
-      </body>
+        </div>
+      </div>
     </>
   )
 }

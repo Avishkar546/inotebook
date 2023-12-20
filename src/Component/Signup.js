@@ -1,4 +1,5 @@
 import { React, useState } from 'react'
+import { Link } from "react-router-dom";
 import { useAlert } from '../Context/Alert/AlertState'
 
 const Signup = () => {
@@ -8,7 +9,7 @@ const Signup = () => {
     password: ""
   })
 
-  const {showAlert} = useAlert(); 
+  const { showAlert } = useAlert();
 
   const handleSubmit = async (e) => { // On form submit
     e.preventDefault();
@@ -17,7 +18,7 @@ const Signup = () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ Name:credentials.Name,Email: credentials.Email, password: credentials.password })
+      body: JSON.stringify({ Name: credentials.Name, Email: credentials.Email, password: credentials.password })
     })
     const json = response.json();
     if (response.ok) {
@@ -27,10 +28,10 @@ const Signup = () => {
         Email: "",
         password: ""
       })
-      showAlert("success","Registered successfully");
+      showAlert("success", "Registered successfully");
     }
     else {
-      showAlert("warning","Something went wrong");
+      showAlert("warning", "Something went wrong");
     }
   }
 
@@ -42,27 +43,38 @@ const Signup = () => {
     });
   };
   return (
-    <div className="w-50 container mx-10 my-5">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group my-3">
-          <label htmlFor="password">Name</label>
-          <input type="text" className="form-control" id="username" placeholder="Enter Your Name" name='Name' value={credentials.Name} onChange={handleInputChange} />
-        </div>
-        <div className="form-group my-3">
-          <label htmlFor="email">Email address</label>
-          <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name='Email' value={credentials.Email} onChange={handleInputChange} />
-          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div className="form-group my-3">
-          <label htmlFor="password">Password</label>
-          <input type="password" className="form-control" id="password" placeholder="Password" name='password' value={credentials.password} onChange={handleInputChange} />
-        </div>
-        <div className='container text-center'>
-          <button type="submit" className="btn btn-primary ">Submit</button>
-        </div>
-      </form>
-    </div>
-  )
+    <>
+      <div className="signup-container">
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <h2>Create an Account</h2>
+
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" placeholder="Enter Your Name" name='Name' value={credentials.Name} onChange={handleInputChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" name='Email' value={credentials.Email} onChange={handleInputChange} />
+            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" placeholder="Password" name='password' value={credentials.password} onChange={handleInputChange} required />
+          </div>
+
+          <div className="form-group">
+            <button type="submit">Sign Up</button>
+          </div>
+
+          <div className="link-to-login">
+            <p>Already have an account? <Link to="/login">Login here</Link></p>
+          </div>
+        </form>
+      </div>
+    </>
+  );
 }
 
 export default Signup

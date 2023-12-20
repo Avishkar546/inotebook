@@ -1,6 +1,5 @@
 import React from 'react'
 import { useAlert } from '../Context/Alert/AlertState';
-import styles from './Alert.module.css'
 
 const Alert = () => {
     const { Alert } = useAlert();
@@ -12,8 +11,8 @@ const Alert = () => {
     const { type, message } = Alert;
 
     return (
-        <div className={styles.alert-container}>
-            <div className={styles.alert-type}>
+        <div className="alert-container">
+            <div className={`alert-${type}`}>
                 <p>{message}</p>
             </div>
         </div>

@@ -1,35 +1,203 @@
-/* style.css */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
+/* Updated Alert.css */
+.alert-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  z-index: 9999;
+  /* Adjust the z-index to make sure it appears above other elements */
 }
 
-.container {
+.alert {
+  position: relative;
+  padding: 15px;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #4caf50;
+  /* Green background */
+  color: white;
+  margin-bottom: 15px;
+}
+
+.alert.error {
+  background-color: #f44336;
+  /* Red background for errors */
+}
+
+/* CSS for About page */
+/* About.module.css */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.about-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.about-content {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  width: 600px;
+}
+
+.about-content h2 {
+  color: #333;
+}
+
+.about-content p {
+  color: #555;
+}
+
+/* CSS for singup page  */
+/* SignUp.css */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.signup-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.signup-form {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 5px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center the content horizontally */
+}
+
+.signup-form h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  width: 100%;
+  /* Set the form group width to 100% */
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.form-group button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  /* Set the button width to 100% */
+}
+
+.form-group button:hover {
+  background-color: #2980b9;
+}
+
+.link-to-login {
+  text-align: center;
   margin-top: 20px;
 }
 
-.card {
+.link-to-login a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.link-to-login a:hover {
+  text-decoration: underline;
+}
+
+/* CSS to Login form  */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.signin-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.signin-form {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+}
+
+.signin-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.signin-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 3px;
 }
 
-.card-title {
-  font-size: 1.2rem;
-  color: #007bff;
+.signin-form button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
 }
 
-.card-text {
-  font-size: 1rem;
+.signin-form button:hover {
+  background-color: #2980b9;
 }
 
-/* Add a custom class to override Bootstrap's default grid spacing */
-.row-no-gutters {
-  margin-right: 0;
-  margin-left: 0;
+.link-to-signup {
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* Set the width of each card to 33.33% to fit three cards in a row */
-.col-md-4 {
-  flex: 0 0 33.33%;
-  max-width: 33.33%;
+.link-to-signup a {
+  color: #2ecc71;
+  text-decoration: none;
+}
+
+.link-to-signup a:hover {
+  text-decoration: underline;
 }
